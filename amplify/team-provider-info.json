@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-multistreamfrontend-dev-132553-authRole",
+            "UnauthRoleArn": "arn:aws:iam::541276598152:role/amplify-multistreamfrontend-dev-132553-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::541276598152:role/amplify-multistreamfrontend-dev-132553-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-multistreamfrontend-dev-132553-deployment",
+            "UnauthRoleName": "amplify-multistreamfrontend-dev-132553-unauthRole",
+            "StackName": "amplify-multistreamfrontend-dev-132553",
+            "StackId": "arn:aws:cloudformation:eu-west-1:541276598152:stack/amplify-multistreamfrontend-dev-132553/bc21df70-eb7c-11ea-be48-069423446670",
+            "AmplifyAppId": "di0s5hawvoc8n"
+        },
+        "categories": {
+            "auth": {
+                "multistreamfrontend9085a917": {}
+            }
+        }
+    }
+}

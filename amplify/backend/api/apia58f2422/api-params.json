@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/items",
+            "lambdaFunction": "multistreamfrontend22b74be3",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "apia58f2422",
+    "apiName": "apia58f2422",
+    "functionArns": [
+        {
+            "lambdaFunction": "multistreamfrontend22b74be3"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-multistreamfrontend-dev-132553-authRole",
+        "unAuthRoleName": "amplify-multistreamfrontend-dev-132553-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "multistreamfrontend22b74be3",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

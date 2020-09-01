@@ -1,0 +1,68 @@
+
+
+.homeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 30px;
+    background-color: #ffff;
+    box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1), 10px 10px 30px 4px rgba(45, 78, 255, 0.15);
+    font-size: 20px !important;
+    border-radius: 6px;
+    margin: auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+/** Header styles **/
+.homeHeader {
+    display: flex;
+    margin-bottom: 20px;
+    width: 100%;
+    max-height: 40px;
+}
+
+.logoSmall {
+    align-self: flex-start;
+    height: 100%;
+    max-height: 130px;
+    background-color: #10E0E0;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/** Body styles **/
+
+.homeBody {
+    width: 100%;
+}
+
+.createNewButton {
+    cursor: pointer;
+    border-radius: 6px !important;
+    color: #FFC440;
+}
+
+.destinationGrid{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.destiantionIcon{
+
+    max-width: 25%;
+    max-height: 50%;
+    margin: 10px;
+}
+
+.destinationItem {
+    flex: 1 0 30%; 
+    max-width: 30%;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 1px 1px 1px #C7C7C7 inset;
+    color:#FFC440;
+    text-transform: capitalize;
+    font-weight: 500;
+}
