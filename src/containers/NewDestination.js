@@ -20,16 +20,11 @@ export default function NewDestination(props) {
     const apiName = "apiadae06fa";
     const path = "/main"
     const data = {
-        /*
         body: {
-            'pk': '#USERID#' + user.username,
-            'sk': '#' + destinations[choosen].name.toUpperCase() + '#' + streamkey
+            'pk': '_USERID_' + user.username,
+            'sk': '_' + destinations[choosen].name.toUpperCase() + '_' + streamkey
         }
-        */
-       body: {
-           'pk': user.username,
-           'sk': streamkey
-       }
+ 
     };
     
     API.post(apiName, path, data)

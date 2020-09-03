@@ -47,6 +47,11 @@
     box-shadow: 0 1px 1px 1px #c7c7c793 inset;
 }
 
+.createNewButton:hover{
+    box-shadow: 0 1px 1px 1px #c7c7c793;
+
+}
+
 .destinationItem:hover {
     box-shadow: none;
     box-shadow: 0 1px 1px 0px #c7c7c793;

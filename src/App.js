@@ -28,13 +28,12 @@ export default function App() {
     setIsAuthenticating(false);
   }
 
-  
+ 
   return (
     <div className="App container">
-      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
-        <Routes />
-      </AppContext.Provider>
-
+        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+          <Routes />
+        </AppContext.Provider>
     </div>
   );
 }
