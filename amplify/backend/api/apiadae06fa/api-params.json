@@ -1,8 +1,8 @@
 {
     "paths": [
         {
-            "name": "/items",
-            "lambdaFunction": "multistreamfrontend22b74be3",
+            "name": "/main",
+            "lambdaFunction": "multistreamfrontendfd526a9f",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -12,14 +12,15 @@
                     "/PATCH",
                     "/DELETE"
                 ]
-            }
+            },
+            "policyResourceName": "/main"
         }
     ],
-    "resourceName": "apia58f2422",
-    "apiName": "apia58f2422",
+    "resourceName": "apiadae06fa",
+    "apiName": "apiadae06fa",
     "functionArns": [
         {
-            "lambdaFunction": "multistreamfrontend22b74be3"
+            "lambdaFunction": "multistreamfrontendfd526a9f"
         }
     ],
     "privacy": {
@@ -31,7 +32,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "multistreamfrontend22b74be3",
+            "resourceName": "multistreamfrontendfd526a9f",
             "attributes": [
                 "Name",
                 "Arn"

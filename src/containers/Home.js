@@ -3,13 +3,37 @@ import { ListGroupItem } from "react-bootstrap";
 import "./Home.css";
 import Logo from "../img/logo.svg";
 import NewDestination from "./NewDestination.js";
+import { Auth, API } from 'aws-amplify';
 
-
-
+ 
 export default function Home(props) {
 
     const [channels, setChannels ] = useState([]);
-    const [isNew, setIsNew ] = useState(true);
+    const [isNew, setIsNew ] = useState(false);
+
+    useEffect(() => {
+        onLoad();
+      }, []);
+
+    async function onLoad(){
+        const user = await Auth.currentAuthenticatedUser();
+        const apiName = 'apiadae06fa';
+        const path = '/main/object' + '/#USERID#' + user.username + '/#INSTAGRAM#gergewgwegfwe'; 
+        const myInit = { 
+            queryStringParameters: { 
+                pk: '#USERID#' + user.username,
+                sk: '#INSTAGRAM#gergewgwegfwe'
+            },
+        };
+        API
+          .get(apiName, path)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error.response);
+         });
+    };
 
 
     function renderchannelsList() {
@@ -19,7 +43,7 @@ export default function Home(props) {
                 {"Created: " + new Date(channel.createdAt).toLocaleString()}
               </ListGroupItem>
           ) : (
-              <ListGroupItem className="createNewButton" onClick={(e) => {e.preventDefault(); alert("test");}}> 
+              <ListGroupItem className="createNewButton" onClick={(e) => {e.preventDefault(); setIsNew(true);}}> 
                 <h4>
                   <b>{"\uFF0B"}</b> Create a new destination
                 </h4>
