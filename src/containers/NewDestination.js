@@ -4,29 +4,35 @@ import React, { useState } from "react";
 import { destinations } from "../data/samples.js";
 import { Form, Button } from "react-bootstrap";
 import { API, Auth } from 'aws-amplify';
-import { useHistory } from "react-router-dom";
 
 
 export default function NewDestination(props) {
   const [didChoose, setDidChoose] = useState(false);
   const [choosen, setChoosen] = useState("");
   const [streamkey, setStreamkey] = useState("");
-  const history = useHistory();
+  const [channelName, setChannelName] = useState("");
+
 
 
   async function handleSubmit(){
+    
+    if (!validate()){
+      alert("Rellen todo los campos");
+      return;
+    }
     
     const user = await Auth.currentAuthenticatedUser();
     const apiName = "apiadae06fa";
     const path = "/main"
     const data = {
         body: {
-            'pk': '_USERID_' + user.username,
-            'sk': '_' + destinations[choosen].name.toUpperCase() + '_' + streamkey
+            'pk': user.username,
+            'sk': streamkey, 
+            'service': destinations[choosen].name.toUpperCase(),
+            'name': channelName
         }
- 
-    };
-    
+    }
+
     API.post(apiName, path, data)
       .then((response) => {
         window.location.reload(false);
@@ -36,8 +42,13 @@ export default function NewDestination(props) {
       });
   };
 
+  const validate = () => {
+    return (streamkey !== "" && channelName !== "");
+  }
+
+
   const appGrid = () => {
-    console.log(destinations);
+    //console.log(destinations);
     return (
       <div className="destinationGrid">
         {destinations.map((destination, i) => (
@@ -70,6 +81,17 @@ export default function NewDestination(props) {
         <div className="itemDescription">{destination.description}</div>
         <div className="itemForm">
           <Form>
+            <Form.Group controlId="formNameFiled">
+              <Form.Control
+                value={channelName}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setChannelName(e.target.value);
+                }}
+                type="text"
+                placeholder="Nombre de la emision"
+              />
+            </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Control
                 value={streamkey}
@@ -81,6 +103,7 @@ export default function NewDestination(props) {
                 placeholder="Streamkey / clave de emision"
               />
             </Form.Group>
+            
             <div className="buttonLayout">
               <Button
                 className="backwardsButton"
