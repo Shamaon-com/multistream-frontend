@@ -207,7 +207,7 @@ export default function Home(props) {
               </div>
               {channel.active ? (
                 <BsToggleOn
-                  id = {'toggle_' + i}
+                  id={"toggle_" + i}
                   className="largeOptionIconsToggle"
                   onClick={(e) => {
                     activeToggle(e);
@@ -216,7 +216,7 @@ export default function Home(props) {
                 />
               ) : (
                 <BsToggleOff
-                  id = {'toggle_' + i}
+                  id={"toggle_" + i}
                   className="largeOptionIconsToggle"
                   onClick={(e) => {
                     activeToggle(e);
@@ -251,7 +251,11 @@ export default function Home(props) {
       </div>
       <div className="homeBody">
         {isNew ? (
-          <NewDestination setIsLoading={setIsLoading} setIsNew={setIsNew} onLoad={onLoad}/>
+          <NewDestination
+            setIsLoading={setIsLoading}
+            setIsNew={setIsNew}
+            onLoad={onLoad}
+          />
         ) : (
           renderchannelsList()
         )}
