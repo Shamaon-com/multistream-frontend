@@ -16,8 +16,8 @@
             "policyResourceName": "/main"
         }
     ],
-    "resourceName": "apiadae06fa",
-    "apiName": "apiadae06fa",
+    "resourceName": "api720b87a2",
+    "apiName": "api720b87a2",
     "functionArns": [
         {
             "lambdaFunction": "multistreamfrontendfd526a9f"

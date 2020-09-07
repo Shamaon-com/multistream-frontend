@@ -1,6 +1,6 @@
 import "./Home.css";
 import "./Login.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { destinations } from "../data/samples.js";
 import { Form, Button } from "react-bootstrap";
 import { API, Auth } from 'aws-amplify';
@@ -13,29 +13,31 @@ export default function NewDestination(props) {
   const [channelName, setChannelName] = useState("");
 
 
-
   async function handleSubmit(){
-    
+    props.setIsLoading(true);
     if (!validate()){
       alert("Rellen todo los campos");
       return;
     }
     
     const user = await Auth.currentAuthenticatedUser();
-    const apiName = "apiadae06fa";
+    const apiName = "api720b87a2";
     const path = "/main"
     const data = {
         body: {
             'pk': user.username,
             'sk': streamkey, 
             'service': destinations[choosen].name.toUpperCase(),
-            'name': channelName
+            'name': channelName,
+            'active': true
         }
     }
 
     API.post(apiName, path, data)
       .then((response) => {
-        window.location.reload(false);
+        props.setIsLoading(false);
+        props.setIsNew(false);
+        props.onLoad();
       })
       .catch((error) => {
         console.log(error.response);

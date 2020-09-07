@@ -8,11 +8,6 @@
     }
   },
   "function": {
-    "multistreamfrontend22b74be3": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "multistreamfrontendfd526a9f": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -34,7 +29,7 @@
     }
   },
   "api": {
-    "apiadae06fa": {
+    "api720b87a2": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
