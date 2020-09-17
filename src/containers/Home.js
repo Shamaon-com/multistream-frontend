@@ -3,6 +3,7 @@ import { ListGroupItem, ToggleButton } from "react-bootstrap";
 import "./Home.css";
 import Logo from "../img/logo.svg";
 import NewDestination from "./NewDestination.js";
+import GoLivePage from "./GoLivePage.js";
 import { Auth, API, input } from "aws-amplify";
 import { destinations } from "../data/samples.js";
 import { AiFillEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
@@ -15,50 +16,51 @@ export default function Home(props) {
   const [isNew, setIsNew] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [goLive, setGoLive] = useState(false);
+  const [user, setUser] = useState([]);
   useEffect(() => {
     onLoad();
   }, []);
 
   async function onLoad() {
     const user = await Auth.currentAuthenticatedUser();
+    setUser(user);
     const apiName = "api720b87a2";
     const path = "/main/" + user.username;
     setIsLoading(true);
     API.get(apiName, path)
       .then((response) => {
-        setChannels(response);
-        console.log(response);
+        setChannels(response.filter((response) => response.service != "primary"));
+        //console.log(response);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error.response);
+        //console.log(error.response);
       });
   }
 
   async function handleDelete(e) {
+    console.log(user); 
     e.preventDefault();
     setIsLoading(true);
     const id = e.currentTarget.id.split("_")[1];
-    const user = await Auth.currentAuthenticatedUser();
     const apiName = "api720b87a2";
     const path = "/main/object/" + user.username + "/" + channels[id].sk;
 
     API.del(apiName, path)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setIsLoading(false);
         onLoad();
       })
       .catch((error) => {
-        console.log(error.response);
+        //console.log(error.response);
       });
   }
 
   async function handleUpdate(e) {
     setIsLoading(true);
     const id = e.currentTarget.id.split("_")[1];
-    const user = await Auth.currentAuthenticatedUser();
     const apiName = "api720b87a2";
     const path = "/main";
     const data = {
@@ -72,13 +74,13 @@ export default function Home(props) {
     };
     API.put(apiName, path, data)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         document.getElementById("tick_" + id).style.display = "none";
         document.getElementById("edit_" + id).style.display = "inline";
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error.response);
+        //console.log(error.response);
       });
   }
 
@@ -87,7 +89,7 @@ export default function Home(props) {
    */
   const handleShowKey = (e) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
     const id = e.currentTarget.id.split("_")[1];
     const key = document.getElementById("key_" + id);
     if (key.type == "text") {
@@ -115,7 +117,7 @@ export default function Home(props) {
    * onBlur={handleEditReset}
    
   const handleEditReset = (e) => {
-    console.log(e);
+    //console.log(e);
     const id = e.currentTarget.id.split("_")[1];
     var edit = document.getElementById("edit_" + id);
     var title = document.getElementById("title_" + id);
@@ -236,6 +238,7 @@ export default function Home(props) {
     );
   }
 
+
   return (
     <div className="homeContainer">
       <div className="homeHeader">
@@ -245,9 +248,23 @@ export default function Home(props) {
           onClick={(e) => {
             e.preventDefault();
             setIsNew(false);
+            setGoLive(false);
           }}
         />
-        {isLoading ? <Spinner animation="grow" /> : <div />}
+        {isLoading ? (
+          <Spinner animation="grow" />
+        ) : (
+          <div
+            className="redEmitirButton"
+            onClick={(e) => {
+              e.preventDefault();
+              //console.log(e);
+              setGoLive(true);
+            }}
+          >
+            emitir
+          </div>
+        )}
       </div>
       <div className="homeBody">
         {isNew ? (
@@ -256,6 +273,8 @@ export default function Home(props) {
             setIsNew={setIsNew}
             onLoad={onLoad}
           />
+        ) : goLive ? (
+          <GoLivePage setIsLoading={setIsLoading} isLoading={isLoading} channels={channels} user={user} />
         ) : (
           renderchannelsList()
         )}

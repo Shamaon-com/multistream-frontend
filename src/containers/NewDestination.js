@@ -9,9 +9,12 @@ import { API, Auth } from 'aws-amplify';
 export default function NewDestination(props) {
   const [didChoose, setDidChoose] = useState(false);
   const [choosen, setChoosen] = useState("");
+  // Destination params
   const [streamkey, setStreamkey] = useState("");
-  const [channelName, setChannelName] = useState("");
-
+  const [name, setName] = useState("");
+  const [userStreamKey, setUserStreamKey] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   async function handleSubmit(){
     props.setIsLoading(true);
@@ -26,10 +29,12 @@ export default function NewDestination(props) {
     const data = {
         body: {
             'pk': user.username,
-            'sk': streamkey, 
+            'sk': streamkey,
             'service': destinations[choosen].name.toUpperCase(),
-            'name': channelName,
-            'active': true
+            'name': name,
+            'active': true,
+            'password': password,
+            'username': username
         }
     }
 
@@ -45,7 +50,7 @@ export default function NewDestination(props) {
   };
 
   const validate = () => {
-    return (streamkey !== "" && channelName !== "");
+    return ((streamkey !== "" && name !== "") || (username !== "" && password !== ""));
   }
 
 
@@ -60,6 +65,7 @@ export default function NewDestination(props) {
               e.preventDefault();
               setDidChoose(true);
               setChoosen(i);
+              console.log(choosen);
             }}
           >
             <div>
@@ -85,10 +91,10 @@ export default function NewDestination(props) {
           <Form>
             <Form.Group controlId="formNameFiled">
               <Form.Control
-                value={channelName}
+                value={name}
                 onChange={(e) => {
                   e.preventDefault();
-                  setChannelName(e.target.value);
+                  setName(e.target.value);
                 }}
                 type="text"
                 placeholder="Nombre de la emision"
@@ -102,7 +108,7 @@ export default function NewDestination(props) {
                   setStreamkey(e.target.value);
                 }}
                 type="text"
-                placeholder="Streamkey / clave de emision"
+                placeholder="Clave de emision"
               />
             </Form.Group>
             
@@ -112,6 +118,7 @@ export default function NewDestination(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   setDidChoose(false);
+                  setName("");
                 }}
               >
                 &lt;
@@ -133,9 +140,83 @@ export default function NewDestination(props) {
     );
   };
 
+  const appFormWithLogin = () => {
+    const destination = destinations[choosen];
+    return (
+      <div className="itemContainer">
+        <div className="itemTitle">
+          <img className="destiantionIcon" src={destination.icon} />
+          {destination.name}
+        </div>
+        <div className="itemDescription">{destination.description}</div>
+        <div className="itemForm">
+          <Form>
+          <Form.Group controlId="formBasicPassword">
+              <Form.Control
+                value={name}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setName(e.target.value);
+                }}
+                type="text"
+                placeholder="Nombre de la emision"
+              />
+            </Form.Group>
+            <Form.Group controlId="formNameFiled">
+              <Form.Control
+                value={username}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setUsername(e.target.value);
+                }}
+                type="text"
+                placeholder="Usuario"
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Control
+                value={password}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPassword(e.target.value);
+                }}
+                type="password"
+                placeholder="Contraseña"
+              />
+            </Form.Group>
+            
+            <div className="buttonLayout">
+              <Button
+                className="backwardsButton"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDidChoose(false);
+                  setName("");
+                }}
+              >
+                &lt;
+              </Button>
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+                variant="primary"
+                type="submit"
+              >
+                Entrar
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <>
-      {didChoose ? appForm() : appGrid()}
+      {didChoose ?  destinations[choosen].name === 'instagram' ? appFormWithLogin(): appForm() : appGrid()}
     </>
   );
 }
