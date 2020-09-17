@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { destinations } from "../data/samples.js";
 import { Form, Button } from "react-bootstrap";
 import { API, Auth } from 'aws-amplify';
+import short from "short-uuid";
 
 
 export default function NewDestination(props) {
@@ -23,13 +24,17 @@ export default function NewDestination(props) {
       return;
     }
     
+    var key = streamkey;
+    if(key === ""){
+      key = short.generate();
+    }
     const user = await Auth.currentAuthenticatedUser();
     const apiName = "api720b87a2";
     const path = "/main"
     const data = {
         body: {
             'pk': user.username,
-            'sk': streamkey,
+            'sk': key,
             'service': destinations[choosen].name.toUpperCase(),
             'name': name,
             'active': true,
@@ -55,7 +60,6 @@ export default function NewDestination(props) {
 
 
   const appGrid = () => {
-    //console.log(destinations);
     return (
       <div className="destinationGrid">
         {destinations.map((destination, i) => (
@@ -65,7 +69,6 @@ export default function NewDestination(props) {
               e.preventDefault();
               setDidChoose(true);
               setChoosen(i);
-              console.log(choosen);
             }}
           >
             <div>

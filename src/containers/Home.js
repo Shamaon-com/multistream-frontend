@@ -11,6 +11,7 @@ import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import { Spinner } from "react-bootstrap";
 
+
 export default function Home(props) {
   const [channels, setChannels] = useState([]);
   const [isNew, setIsNew] = useState(false);
@@ -18,6 +19,8 @@ export default function Home(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [goLive, setGoLive] = useState(false);
   const [user, setUser] = useState([]);
+  const [showGoLive, setShowGoLive] = useState(false);
+
   useEffect(() => {
     onLoad();
   }, []);
@@ -30,9 +33,17 @@ export default function Home(props) {
     setIsLoading(true);
     API.get(apiName, path)
       .then((response) => {
-        setChannels(response.filter((response) => response.service != "primary"));
+        setChannels(
+          response.filter((response) => response.service != "primary")
+        );
         //console.log(response);
         setIsLoading(false);
+        if (response.length > 1) {
+          setShowGoLive(true);
+        }
+        else {
+          setShowGoLive(false);
+        }
       })
       .catch((error) => {
         //console.log(error.response);
@@ -40,7 +51,7 @@ export default function Home(props) {
   }
 
   async function handleDelete(e) {
-    console.log(user); 
+    console.log(user);
     e.preventDefault();
     setIsLoading(true);
     const id = e.currentTarget.id.split("_")[1];
@@ -238,7 +249,6 @@ export default function Home(props) {
     );
   }
 
-
   return (
     <div className="homeContainer">
       <div className="homeHeader">
@@ -249,21 +259,25 @@ export default function Home(props) {
             e.preventDefault();
             setIsNew(false);
             setGoLive(false);
+            onLoad();
           }}
         />
         {isLoading ? (
           <Spinner animation="grow" />
-        ) : (
+        ) : showGoLive ? (
           <div
             className="redEmitirButton"
             onClick={(e) => {
               e.preventDefault();
               //console.log(e);
               setGoLive(true);
+              setShowGoLive(false);
             }}
           >
             emitir
           </div>
+        ) : (
+          <></>
         )}
       </div>
       <div className="homeBody">
@@ -274,7 +288,12 @@ export default function Home(props) {
             onLoad={onLoad}
           />
         ) : goLive ? (
-          <GoLivePage setIsLoading={setIsLoading} isLoading={isLoading} channels={channels} user={user} />
+          <GoLivePage
+            setIsLoading={setIsLoading}
+            isLoading={isLoading}
+            channels={channels}
+            user={user}
+          />
         ) : (
           renderchannelsList()
         )}

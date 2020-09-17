@@ -171,6 +171,49 @@ EABFCB
     box-shadow: 0 1px 1px 0px #c7c7c793;
 }
 
+/** Destination settings css **/
+
+.textBig{
+    margin-bottom: 5%;
+}
+.streamSettingsBox{
+    display: flex !important;
+    flex: 1 0 100%;
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,.125);
+    max-height: 100px;
+    align-items: center;
+    height: 60px;
+    
+}
+
+.streamSettingsText{
+    margin-left: 10px;
+    width: 72%;
+    overflow: hidden;
+    text-align: left;
+    font-size: 16px;
+    border: none; 
+}
+
+.streamSettingsTag{
+    font-size: 17px;
+    margin: 10px; 
+    width: 12%;
+    font-weight: 600;
+    text-align: right;
+}
+
+.streamSettingsIcon{
+    cursor: pointer;
+    align-self: center;
+    height: 100%;
+    width: 5%;
+    margin-left: 10px;
+    color: #EABFCB;
+   
+}
+
 
 /** Item signup page css **/
 
