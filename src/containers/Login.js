@@ -34,7 +34,7 @@ export default function Login(props) {
       try {
         await Auth.signIn(email, password);
         userHasAuthenticated(true);
-        history.push("/");
+        history.push("/chainlog");
       } catch (e) {
         if (e.code === "UserNotConfirmedException") {
           setIsRegister(true);

@@ -159,6 +159,7 @@ export default function Home(props) {
           onClick={(e) => {
             e.preventDefault();
             setIsNew(true);
+            setShowGoLive(false);
           }}
         >
           <h4>
