@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { ListGroupItem, ToggleButton } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { ListGroupItem } from "react-bootstrap";
 import "./Home.css";
 import Logo from "../img/logo.svg";
 import NewDestination from "./NewDestination.js";
@@ -15,12 +15,11 @@ import { Spinner } from "react-bootstrap";
 export default function Home(props) {
   const [channels, setChannels] = useState([]);
   const [isNew, setIsNew] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [goLive, setGoLive] = useState(false);
   const [user, setUser] = useState([]);
   const [showGoLive, setShowGoLive] = useState(false);
-
+  const [userStreamKey, setUserStreamKey] = useState("");
   useEffect(() => {
     onLoad();
   }, []);
@@ -34,7 +33,10 @@ export default function Home(props) {
     API.get(apiName, path)
       .then((response) => {
         setChannels(
-          response.filter((response) => response.service != "primary")
+          response.filter((response) => response.service !== "primary")
+        );
+        setUserStreamKey(
+          response.filter((response) => response.service === "primary")
         );
         //console.log(response);
         setIsLoading(false);
@@ -103,7 +105,7 @@ export default function Home(props) {
     //console.log(e);
     const id = e.currentTarget.id.split("_")[1];
     const key = document.getElementById("key_" + id);
-    if (key.type == "text") {
+    if (key.type === "text") {
       key.type = "password";
     } else {
       key.type = "text";
@@ -140,10 +142,6 @@ export default function Home(props) {
 
   const handleEditChange = (e) => {
     const id = e.currentTarget.id.split("_")[1];
-    var title = document.getElementById("title_" + id);
-    if (title.value === channels[id].name) {
-      setNewTitle(channels[id].name);
-    }
     let newArr = [...channels];
     newArr[id].name = e.target.value;
     setChannels(newArr);
@@ -178,7 +176,7 @@ export default function Home(props) {
                 className="destiantionIcon"
                 src={
                   destinations.find((destination) => {
-                    return destination.name == channel.service.toLowerCase();
+                    return destination.name === channel.service.toLowerCase();
                   }).icon
                 }
               />
@@ -291,7 +289,7 @@ export default function Home(props) {
           <GoLivePage
             setIsLoading={setIsLoading}
             isLoading={isLoading}
-            channels={channels}
+            userStreamKey={userStreamKey}
             user={user}
           />
         ) : (

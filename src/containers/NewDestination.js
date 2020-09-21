@@ -1,6 +1,6 @@
 import "./Home.css";
 import "./Login.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { destinations } from "../data/samples.js";
 import { Form, Button } from "react-bootstrap";
 import { API, Auth } from 'aws-amplify';
@@ -13,7 +13,7 @@ export default function NewDestination(props) {
   // Destination params
   const [streamkey, setStreamkey] = useState("");
   const [name, setName] = useState("");
-  const [userStreamKey, setUserStreamKey] = useState("");
+  //const [userStreamKey, setUserStreamKey] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
