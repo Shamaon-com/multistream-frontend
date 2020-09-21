@@ -40,7 +40,7 @@ export default function Home(props) {
         );
         //console.log(response);
         setIsLoading(false);
-        if (response.length > 1) {
+        if (response.filter((response) => response.service !== "primary").length > 0) {
           setShowGoLive(true);
         }
         else {
