@@ -40,7 +40,8 @@ export default function Home(props) {
         );
         //console.log(response);
         setIsLoading(false);
-        if (response.filter((response) => response.service !== "primary").length > 0) {
+        if (response.filter((response) => response.service !== "primary" && response.active).length > 0) {
+          console.log(response);
           setShowGoLive(true);
         }
         else {
@@ -53,7 +54,6 @@ export default function Home(props) {
   }
 
   async function handleDelete(e) {
-    console.log(user);
     e.preventDefault();
     setIsLoading(true);
     const id = e.currentTarget.id.split("_")[1];
@@ -62,8 +62,7 @@ export default function Home(props) {
 
     API.del(apiName, path)
       .then((response) => {
-        //console.log(response);
-        setIsLoading(false);
+        //console.log(response); 
         onLoad();
       })
       .catch((error) => {
@@ -77,7 +76,6 @@ export default function Home(props) {
     const apiName = "api720b87a2";
     const path = "/main";
     channels[id].name = document.getElementById("title_" + id).value;
-    console.log(channels[id])
     const data = {
       body: channels[id]
     }
@@ -87,7 +85,7 @@ export default function Home(props) {
         //console.log(response);
         document.getElementById("tick_" + id).style.display = "none";
         document.getElementById("edit_" + id).style.display = "inline";
-        setIsLoading(false);
+        onLoad();
       })
       .catch((error) => {
         //console.log(error.response);

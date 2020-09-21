@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./GoLivePage.css";
 import { API } from "aws-amplify";
 import { packages } from "../data/samples";
@@ -7,6 +7,9 @@ import { HiOutlineClipboardCopy } from "react-icons/hi";
 
 export default function GoLivePage(props) {
   const [streamkey, setStreamkey] = useState("");
+  const streamkeyRef = useRef(null);
+  const rtmpRef = useRef(null);
+
 
   useEffect(() => {
     props.setIsLoading(true);
@@ -71,13 +74,13 @@ export default function GoLivePage(props) {
         <div className="streamSettingsGrid">
           <div className="streamSettingsBox">
             <p className="streamSettingsTag">Servidor:</p>
-            <input readOnly="readonly" className="streamSettingsText" value="rtmp://madrid.shamaon.com/live"/>
-            <HiOutlineClipboardCopy className="streamSettingsIcon" />
+            <input ref={rtmpRef} readOnly="readonly" className="streamSettingsText" value="rtmp://madrid.shamaon.com/live"/>
+            <HiOutlineClipboardCopy className="streamSettingsIcon"  onClick={(event) => {rtmpRef.current.select(); document.execCommand("copy"); }}/>
           </div>
           <div className="streamSettingsBox">
             <p className="streamSettingsTag">Clave:</p>
-            <input readOnly="readonly" className="streamSettingsText" value={streamkey}/>
-            <HiOutlineClipboardCopy className="streamSettingsIcon" />
+            <input ref={streamkeyRef} readOnly="readonly" className="streamSettingsText" value={streamkey}/>
+            <HiOutlineClipboardCopy className="streamSettingsIcon" onClick={(event) => {streamkeyRef.current.select(); document.execCommand("copy"); }}/>
           </div>
         </div>
       </div>

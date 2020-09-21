@@ -34,12 +34,13 @@ export default function NewDestination(props) {
     const data = {
         body: {
             'pk': user.username,
-            'sk': key,
+            'sk': key.split('?')[0],
             'service': destinations[choosen].name.toUpperCase(),
             'name': name,
             'active': true,
             'password': password,
-            'username': username
+            'username': username,
+            'fbKey': key.split('?')[1]
         }
     }
 
