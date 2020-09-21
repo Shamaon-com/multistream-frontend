@@ -76,15 +76,12 @@ export default function Home(props) {
     const id = e.currentTarget.id.split("_")[1];
     const apiName = "api720b87a2";
     const path = "/main";
+    channels[id].name = document.getElementById("title_" + id).value;
+    console.log(channels[id])
     const data = {
-      body: {
-        pk: user.username,
-        sk: channels[id].sk,
-        name: document.getElementById("title_" + id).value,
-        service: channels[id].service,
-        active: channels[id].active,
-      },
-    };
+      body: channels[id]
+    }
+ 
     API.put(apiName, path, data)
       .then((response) => {
         //console.log(response);
@@ -156,6 +153,7 @@ export default function Home(props) {
   };
 
   function renderchannelsList() {
+    //console.log(channels);
     return (
       <>
         <ListGroupItem
