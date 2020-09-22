@@ -1,5 +1,8 @@
 .chainLogWelcome{
     text-align: left !important;
+    overflow: auto;
+    height: 90%;
+    margin-bottom: 10px;
 }
 
 .detalles {
@@ -20,14 +23,15 @@ ul{
 }
 .footerBar{
     display: flex;
-    width: 90%;
+    width: 100%;
     max-height: 60px;
 }
+
 .okIcon{
     cursor: pointer;
     align-self: flex-end;
-    height: 10%;
-    width: 10%;
+    height: 9%;
+    width: 9%;
     padding: 5px;
     color: #EABFCB;
     margin-left: auto;
