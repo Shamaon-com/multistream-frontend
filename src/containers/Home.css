@@ -12,8 +12,16 @@ EABFCB
 1B1B1B
 **/
 
+
+
+@media only screen and (min-width: 1300px) {
+    .homeContainer {
+      height: 75vh !important;
+    }
+  }
+
 .homeContainer {
-    height: 90vh;
+    height: 85vh;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -25,6 +33,7 @@ EABFCB
     margin: auto;
     max-width: 600px;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 /** Header styles **/
@@ -43,6 +52,28 @@ EABFCB
     background-color: #EABFCB;
     padding: 10px;
     border-radius: 6px;
+    
+}
+
+/** Footer styles **/
+
+.footer {
+    display: flex;
+    width: 100%;
+    margin-bottom: auto;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.logoutButton{
+    width: 30%;
+    font-size: 17px;
+    color: #EABFCB;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
 }
 
 /** Body styles **/

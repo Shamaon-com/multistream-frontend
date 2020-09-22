@@ -9,7 +9,7 @@ export default function UnauthenticatedRoute({ children, ...rest }) {
       {!isAuthenticated ? (
         children
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/chainlog" />
       )}
     </Route>
   );

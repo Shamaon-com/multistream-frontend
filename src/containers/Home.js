@@ -4,13 +4,13 @@ import "./Home.css";
 import Logo from "../img/logo.svg";
 import NewDestination from "./NewDestination.js";
 import GoLivePage from "./GoLivePage.js";
-import { Auth, API, input } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { destinations } from "../data/samples.js";
 import { AiFillEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import { Spinner } from "react-bootstrap";
-
+import Footer from "../components/Footer.js";
 
 export default function Home(props) {
   const [channels, setChannels] = useState([]);
@@ -20,6 +20,7 @@ export default function Home(props) {
   const [user, setUser] = useState([]);
   const [showGoLive, setShowGoLive] = useState(false);
   const [userStreamKey, setUserStreamKey] = useState("");
+
   useEffect(() => {
     onLoad();
   }, []);
@@ -40,10 +41,14 @@ export default function Home(props) {
         );
         //console.log(response);
         setIsLoading(false);
-        if (response.filter((response) => response.service !== "primary").length > 0) {
+        if (
+          response.filter(
+            (response) => response.service !== "primary" && response.active
+          ).length > 0
+        ) {
+          console.log(response);
           setShowGoLive(true);
-        }
-        else {
+        } else {
           setShowGoLive(false);
         }
       })
@@ -53,7 +58,6 @@ export default function Home(props) {
   }
 
   async function handleDelete(e) {
-    console.log(user);
     e.preventDefault();
     setIsLoading(true);
     const id = e.currentTarget.id.split("_")[1];
@@ -63,7 +67,6 @@ export default function Home(props) {
     API.del(apiName, path)
       .then((response) => {
         //console.log(response);
-        setIsLoading(false);
         onLoad();
       })
       .catch((error) => {
@@ -77,17 +80,16 @@ export default function Home(props) {
     const apiName = "api720b87a2";
     const path = "/main";
     channels[id].name = document.getElementById("title_" + id).value;
-    console.log(channels[id])
     const data = {
-      body: channels[id]
-    }
- 
+      body: channels[id],
+    };
+
     API.put(apiName, path, data)
       .then((response) => {
         //console.log(response);
         document.getElementById("tick_" + id).style.display = "none";
         document.getElementById("edit_" + id).style.display = "inline";
-        setIsLoading(false);
+        onLoad();
       })
       .catch((error) => {
         //console.log(error.response);
@@ -152,6 +154,7 @@ export default function Home(props) {
     setChannels(newArr);
   };
 
+
   function renderchannelsList() {
     //console.log(channels);
     return (
@@ -161,6 +164,7 @@ export default function Home(props) {
           onClick={(e) => {
             e.preventDefault();
             setIsNew(true);
+            setShowGoLive(false);
           }}
         >
           <h4>
@@ -246,54 +250,57 @@ export default function Home(props) {
   }
 
   return (
-    <div className="homeContainer">
-      <div className="homeHeader">
-        <img
-          className="logoSmall"
-          src={Logo}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsNew(false);
-            setGoLive(false);
-            onLoad();
-          }}
-        />
-        {isLoading ? (
-          <Spinner animation="grow" />
-        ) : showGoLive ? (
-          <div
-            className="redEmitirButton"
+    <>
+      <div className="homeContainer">
+        <div className="homeHeader">
+          <img
+            className="logoSmall"
+            src={Logo}
             onClick={(e) => {
               e.preventDefault();
-              //console.log(e);
-              setGoLive(true);
-              setShowGoLive(false);
+              setIsNew(false);
+              setGoLive(false);
+              onLoad();
             }}
-          >
-            emitir
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className="homeBody">
-        {isNew ? (
-          <NewDestination
-            setIsLoading={setIsLoading}
-            setIsNew={setIsNew}
-            onLoad={onLoad}
           />
-        ) : goLive ? (
-          <GoLivePage
-            setIsLoading={setIsLoading}
-            isLoading={isLoading}
-            userStreamKey={userStreamKey}
-            user={user}
-          />
-        ) : (
-          renderchannelsList()
-        )}
+          {isLoading ? (
+            <Spinner animation="grow" />
+          ) : showGoLive ? (
+            <div
+              className="redEmitirButton"
+              onClick={(e) => {
+                e.preventDefault();
+                //console.log(e);
+                setGoLive(true);
+                setShowGoLive(false);
+              }}
+            >
+              emitir
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="homeBody">
+          {isNew ? (
+            <NewDestination
+              setIsLoading={setIsLoading}
+              setIsNew={setIsNew}
+              onLoad={onLoad}
+            />
+          ) : goLive ? (
+            <GoLivePage
+              setIsLoading={setIsLoading}
+              isLoading={isLoading}
+              userStreamKey={userStreamKey}
+              user={user}
+            />
+          ) : (
+            renderchannelsList()
+          )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

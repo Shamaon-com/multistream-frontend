@@ -1,0 +1,45 @@
+.chainLogWelcome{
+    text-align: left !important;
+    overflow: auto;
+    height: 90%;
+    margin-bottom: 10px;
+}
+
+.detalles {
+    display: flex;
+    font-size: 17px;
+}
+
+.detallesSmall{
+    margin-right: 50px;
+}
+
+li{
+    margin-bottom: 10px; 
+}
+
+ul{
+    margin-bottom: 30px !important;
+}
+.footerBar{
+    display: flex;
+    width: 100%;
+    max-height: 60px;
+}
+
+.okIcon{
+    cursor: pointer;
+    align-self: flex-end;
+    height: 9%;
+    width: 9%;
+    padding: 5px;
+    color: #EABFCB;
+    margin-left: auto;
+    border-radius: 6px !important;
+    box-shadow: 0 1px 1px 1px #c7c7c793 inset;
+}
+
+.okIcon:hover{
+    box-shadow: 0 1px 1px 1px #c7c7c793;
+
+}

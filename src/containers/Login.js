@@ -5,6 +5,8 @@ import "./Login.css";
 import Logo from "../img/logo.svg";
 import { useAppContext } from "../libs/contextLib";
 import { useHistory } from "react-router-dom";
+import Footer from "../components/Footer.js";
+
 
 export default function Login(props) {
   const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ export default function Login(props) {
       try {
         await Auth.signIn(email, password);
         userHasAuthenticated(true);
-        history.push("/");
+        history.push("/chainlog");
       } catch (e) {
         if (e.code === "UserNotConfirmedException") {
           setIsRegister(true);
@@ -180,6 +182,7 @@ export default function Login(props) {
   };
 
   return (
+    <>
     <div className="loginForm">
       <Row>
         <Col md={4}>
@@ -188,5 +191,7 @@ export default function Login(props) {
         <Col md={8}>{isRegister ? renderRegister() : renderLogin()}</Col>
       </Row>
     </div>
+    <Footer />
+    </>
   );
 }
