@@ -54,6 +54,15 @@ export default function Chainlog(props) {
                   <div className="detallesSmall">TEI: 2 semanas</div>
                 </div>
               </li>
+              <li>
+                {" "}
+                Soprte optimizado para movil.
+                <br />
+                <div className="detalles">
+                  <div className="detallesSmall">Prioridad: Baja</div>
+                  <div className="detallesSmall">TEI: None</div>
+                </div>
+              </li>
             </ul>
           </div>
           <div className="footerBar">
